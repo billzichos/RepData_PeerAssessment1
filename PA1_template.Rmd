@@ -104,7 +104,7 @@ with(df.imputed, plot(date, steps, type = "h", main = "Total Number of Steps Tak
 with(df, plot(date, steps, type = "h", main = "Total Number of Steps Taken Each Day", ylab = "# of Steps", xlab = "Date"))
 
 df.compare <- merge(df,df.imputed, by = c("date", "interval"))
-select(df.compare, date, interval, raw.steps = steps.x, imputed.steps = steps.y)
+#select(df.compare, date, interval, raw.steps = steps.x, imputed.steps = steps.y)
 
 ```
 ## Are there differences in activity patterns between weekdays and weekends?
