@@ -41,14 +41,8 @@ library("dplyr")
 ```
 
 ```r
-library("ggplot2")
-```
+library("lattice")
 
-```
-## Warning: package 'ggplot2' was built under R version 3.1.3
-```
-
-```r
 by_date <- group_by(df, date)
 by_interval <- group_by(df, interval)
 
@@ -94,7 +88,7 @@ plot(df$date, df$steps, type = "h", main = "Total Number of Steps Taken Each Day
 ```r
 df.daily.summary <- summarize(group_by(df, date), mean(steps, na.rm = TRUE), median(steps, na.rm = TRUE))
 
-print(df.daily.summary)
+df.daily.summary
 ```
 
 ```
@@ -17790,4 +17784,25 @@ the dataset with the filled-in missing values for this part.
 
 1. Create a new factor variable in the dataset with two levels -- "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
 
+
+```r
+df.imputed$weekday.end <- "weekday"
+df.imputed$weekday.end[weekdays(df.imputed$date)=="Saturday"|weekdays(df.imputed$date)=="Sunday"] <- "weekend"
+df.imputed$weekday.end <- as.factor(df.imputed$weekday.end)
+str(df.imputed$weekday.end)
+```
+
+```
+##  Factor w/ 2 levels "weekday","weekend": 1 1 2 1 2 1 2 1 1 2 ...
+```
+
 1. Make a panel plot containing a time series plot (i.e. `type = "l"`) of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). The plot should look something like the following, which was created using **simulated data**:
+
+
+```r
+xyplot(steps ~ interval|weekday.end, data = df.imputed, layout = c(1,2), type = "l")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-11-1.png) 
+
+It looks like this guy is sleeping in on the weekends...
