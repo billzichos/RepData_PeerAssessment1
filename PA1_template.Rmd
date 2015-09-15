@@ -1,8 +1,8 @@
 ---
-title: "Reproducible Research: Peer Assessment 1"
-output: 
+title: 'Reproducible Research: Peer Assessment 1'
+output:
   html_document:
-    keep_md: true
+    keep_md: yes
 ---
 
 
@@ -62,6 +62,8 @@ df.daily.summary
 ```{r fig.height=4}
 df.interval.mean <- summarise(by_interval, mean.steps = mean(steps, na.rm = TRUE))
 
+df.interval.mean
+
 df.interval.mean[is.na(df.interval.mean$mean.steps),2] <- 0
 
 plot(df.interval.mean$interval, df.interval.mean$mean.steps, type = "l", main = "Avg Steps by Interval", xlab = "Interval", ylab = "Avg Steps")
@@ -75,6 +77,8 @@ df.interval.summary <- summarise(by_interval, sum(steps, na.rm = TRUE))
 df.interval.summary[which(df.interval.summary$`sum(steps, na.rm = TRUE)`==max(df.interval.summary$`sum(steps, na.rm = TRUE)`)),1]
 
 ```
+
+Interval 835 contains the most steps when averaged across all days.
 
 ## Imputing missing values
 

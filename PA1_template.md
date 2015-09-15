@@ -128,6 +128,27 @@ df.daily.summary
 ```r
 df.interval.mean <- summarise(by_interval, mean.steps = mean(steps, na.rm = TRUE))
 
+df.interval.mean
+```
+
+```
+## Source: local data frame [288 x 2]
+## 
+##    interval mean.steps
+## 1         0  1.7169811
+## 2         5  0.3396226
+## 3        10  0.1320755
+## 4        15  0.1509434
+## 5        20  0.0754717
+## 6        25  2.0943396
+## 7        30  0.5283019
+## 8        35  0.8679245
+## 9        40  0.0000000
+## 10       45  1.4716981
+## ..      ...        ...
+```
+
+```r
 df.interval.mean[is.na(df.interval.mean$mean.steps),2] <- 0
 
 plot(df.interval.mean$interval, df.interval.mean$mean.steps, type = "l", main = "Avg Steps by Interval", xlab = "Interval", ylab = "Avg Steps")
@@ -150,6 +171,8 @@ df.interval.summary[which(df.interval.summary$`sum(steps, na.rm = TRUE)`==max(df
 ##   interval
 ## 1      835
 ```
+
+Interval 835 contains the most steps when averaged across all days.
 
 ## Imputing missing values
 
