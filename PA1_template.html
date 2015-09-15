@@ -92,8 +92,9 @@ library(&quot;dplyr&quot;)</code></pre>
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
 <pre class="r"><code>library(&quot;lattice&quot;)
-
-by_date &lt;- group_by(df, date)
+library(&quot;ggplot2&quot;)</code></pre>
+<pre><code>## Warning: package 'ggplot2' was built under R version 3.1.3</code></pre>
+<pre class="r"><code>by_date &lt;- group_by(df, date)
 by_interval &lt;- group_by(df, interval)
 
 str(df)</code></pre>
@@ -113,6 +114,7 @@ str(df)</code></pre>
 </div>
 <div id="what-is-mean-total-number-of-steps-taken-per-day" class="section level2">
 <h2>What is mean total number of steps taken per day?</h2>
+<pre class="r"><code>stepsByDay &lt;- tapply(df$steps, df$date, sum, na.rm = TRUE)</code></pre>
 <ol style="list-style-type: decimal">
 <li>Make a histogram of the total number of steps taken each day.</li>
 </ol>

@@ -42,7 +42,14 @@ library("dplyr")
 
 ```r
 library("lattice")
+library("ggplot2")
+```
 
+```
+## Warning: package 'ggplot2' was built under R version 3.1.3
+```
+
+```r
 by_date <- group_by(df, date)
 by_interval <- group_by(df, interval)
 
@@ -73,6 +80,11 @@ summary(df)
 
 ## What is mean total number of steps taken per day?
 
+
+```r
+stepsByDay <- tapply(df$steps, df$date, sum, na.rm = TRUE)
+```
+
 1. Make a histogram of the total number of steps taken each day.
 
 
@@ -80,7 +92,7 @@ summary(df)
 plot(df$date, df$steps, type = "h", main = "Total Number of Steps Taken Each Day", ylab = "# of Steps", xlab = "Date")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
 
 2. Calculate and report the **mean** and **median** total number of steps taken per day
 
@@ -121,7 +133,7 @@ df.interval.mean[is.na(df.interval.mean$mean.steps),2] <- 0
 plot(df.interval.mean$interval, df.interval.mean$mean.steps, type = "l", main = "Avg Steps by Interval", xlab = "Interval", ylab = "Avg Steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-6-1.png) 
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -194,13 +206,13 @@ length(df.imputed[is.na(df.imputed$steps),1])
 with(df.imputed, plot(date, steps, type = "h", main = "Total Number of Steps Taken Each Day After Cleanup"))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-10-1.png) 
 
 ```r
 with(df, plot(date, steps, type = "h", main = "Total Number of Steps Taken Each Day", ylab = "# of Steps", xlab = "Date"))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-9-2.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-10-2.png) 
 
 ```r
 df.compare <- merge(df,df.imputed, by = c("date", "interval"))
@@ -231,6 +243,6 @@ str(df.imputed$weekday.end)
 xyplot(steps ~ interval|weekday.end, data = df.imputed, layout = c(1,2), type = "l")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-11-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-12-1.png) 
 
 It looks like this guy is sleeping in on the weekends...
